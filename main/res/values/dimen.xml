@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <dimen name="size_button_w">50dp</dimen>
+    <dimen name="size_button_h">50dp</dimen>
+
+    <dimen name="h_for_carview">200dp</dimen>
+
+</resources>

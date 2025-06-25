@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">testOneApp</string>
+    <string name="hi_mir">Hi,mir</string>
+    <string name="Setting">Настройки</string>
+    <string name="id">ID:</string>
+    <string name="date">Дата:</string>
+    <string name="time">Время:</string>
+    <string name="tima_start">Время запуска:</string>
+    <string name="battery">Батарея:</string>
+    <string name="btn_modul">Статус модуля</string>
+    <string name="btn_terminal">Терминал</string>
+    <string name="text_sett_date">Текущие дата и время:</string>
+    <string name="text_sett_timeStart">Время запуска:</string>
+</resources>
