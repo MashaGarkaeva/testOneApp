@@ -1,7 +1,6 @@
 package com.example.testoneapp
-
+//изменять данные и передавать их прошлому окну после нажатия кнопки
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -9,12 +8,10 @@ import androidx.activity.ComponentActivity
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.TimePicker
-import android.widget.Toast
 import java.util.Calendar
 
 class Setting : ComponentActivity() {
@@ -47,29 +44,9 @@ class Setting : ComponentActivity() {
 
         val editDate: ImageView = findViewById(R.id.btn_edit_date)
         val editTime: ImageView = findViewById(R.id.btn_edit_time)
+        val editTimeStart: ImageView = findViewById(R.id.btn_edit_timeStart)
 
         editDate.setOnClickListener{
-            /*val inputDate = EditText(this)
-            inputDate.hint = "Введите дату"
-
-            AlertDialog.Builder(this)
-                .setTitle("Введите дату")
-                .setView(inputDate)
-                .setPositiveButton("Ок"){_, _ ->
-                    val newDate = inputDate.text.toString()
-                    if (isValidDate(newDate)){
-                        date.text = "$newDate"
-                    } else {
-                        Toast.makeText(this, "Неверный формат даты", Toast.LENGTH_SHORT).show()
-                    }
-
-                }.setNegativeButton("Отмена", null).show()
-
-            save.setOnClickListener {
-                val intent = Intent(this@Setting, Modul::class.java)
-                startActivity(intent)
-            }*/
-
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -95,21 +72,32 @@ class Setting : ComponentActivity() {
                 }, hour, minute, true
             ).show()
         }
+
+        editTimeStart.setOnClickListener {
+            val hour = calendar.get(Calendar.HOUR)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            TimePickerDialog(
+                this,
+                {_: TimePicker, selectedHour: Int, selectedMinute: Int ->
+                    val formatedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+                    timeStart.text = "$formatedTime"
+                }, hour, minute, true
+            ).show()
+        }
+
+        save.setOnClickListener {
+            val intent = Intent(this@Setting, Modul::class.java)
+            intent.putExtra("Дата", date.text)
+            intent.putExtra("Время", time.text)
+            intent.putExtra("Время запуска", timeStart.text)
+            startActivity(intent)
+        }
     }
 
     private fun setContentView() {
         TODO("Not yet implemented")
     }
-
-    fun Setting.isValidDate(date: kotlin.String): kotlin.Boolean {
-        return try {
-            simpleDateFormat.parse(date)
-            true
-        } catch (e: Exception){
-            false
-        }
-    }
-
 
 }
 

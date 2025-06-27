@@ -1,17 +1,18 @@
 package com.example.testoneapp
-
+//добавила поле для ввода команды и кнопку обновления
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import kotlin.collections.listOf
 
 @Suppress("DEPRECATION")
 class EditMacros : Activity() {
 
-    lateinit var editContent: EditText
+    lateinit var editName: EditText
     var selectedButtonIndex = 0
     var contents = Array(25){""}
 
@@ -20,8 +21,9 @@ class EditMacros : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_macros)
 
-        editContent = findViewById(R.id.edit_content)
+        editName = findViewById(R.id.edit_name)
         val saveButton: Button = findViewById(R.id.btn_save)
+        val back: ImageButton = findViewById(R.id.btn_back)
 
         val editButtons = listOf(R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6
             , R.id.btn7, R.id.btn8, R.id.btn9, R.id.btn10, R.id.btn11, R.id.btn12, R.id.btn13
@@ -31,17 +33,27 @@ class EditMacros : Activity() {
         editButtons.forEachIndexed { index, buttonId ->
             findViewById<Button>(buttonId).setOnClickListener {
                 selectedButtonIndex = index + 1
-                editContent.setText(contents[selectedButtonIndex])
+                editName.setText(contents[selectedButtonIndex])
             }
         }
 
         saveButton.setOnClickListener {
-            if (selectedButtonIndex > 0 ){
-                contents[selectedButtonIndex] = editContent.text.toString()
-                findViewById<Button>(editButtons[selectedButtonIndex - 1]).text = editContent.text.toString()
+            if (selectedButtonIndex > 0) {
+                contents[selectedButtonIndex] = editName.text.toString()
+                findViewById<Button>(editButtons[selectedButtonIndex - 1]).text =
+                    editName.text.toString()
             }
-        }
 
+           /* val intent = Intent(this@EditMacros, Terminal::class.java)
+            val name = editName
+            intent.putExtra("name", name.toString())*/
+            }
+
+
+        back.setOnClickListener {
+            val intent = Intent(this@EditMacros, Terminal::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onBackPressed() {

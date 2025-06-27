@@ -1,5 +1,5 @@
 package com.example.testoneapp
-
+//добавила поля для сообщений, в поле "Вы отправили" появляется последняя введённая команда
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,9 +7,11 @@ import android.content.Intent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.compose.setContent
 
 @Suppress("DEPRECATION")
 class Terminal : ComponentActivity() {
@@ -18,6 +20,11 @@ class Terminal : ComponentActivity() {
         i -> if(i == 0) ""
         else "Содержимое $i"
     }
+
+    val fields = mutableListOf(
+        "Имя" to "",
+        "Команда" to ""
+    )
 
     @SuppressLint("MissingInflatedId", "DiscouragedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +36,7 @@ class Terminal : ComponentActivity() {
         val editText: EditText = findViewById(R.id.edit_command)
         val btn_list_macros: Button = findViewById(R.id.btn_list_macros)
         textConteiner = findViewById(R.id.textConteiner)
+        val setText: TextView = findViewById(R.id.set_text)
 
         back.setOnClickListener {
             val intent = Intent(this@Terminal, MainActivity::class.java)
@@ -36,6 +44,7 @@ class Terminal : ComponentActivity() {
         }
 
         btn_editCommand.setOnClickListener {
+            setText.text = editText.text.toString()
             val text = editText.text.toString()
             addTextToConteiner(text)
             editText.text.clear()
@@ -56,10 +65,10 @@ class Terminal : ComponentActivity() {
         buttons.forEachIndexed { index, buttonId ->
             findViewById<Button>(buttonId).setOnClickListener {
                 Toast.makeText(this, buttonContents[index + 1], Toast.LENGTH_SHORT).show()
-
             }
         }
     }
+
 
     fun addTextToConteiner(text: String){
         val textView = TextView(this)
