@@ -39,12 +39,21 @@
         />
 
     <ImageView
+        android:id="@+id/btn_update"
+        android:layout_width="@dimen/size_button_w"
+        android:layout_height="@dimen/size_button_h"
+        android:layout_toStartOf="@id/btn_setting"
+        android:src="@drawable/update"
+        android:layout_marginTop="40dp"
+        />
+
+    <ImageView
         android:id="@+id/btn_setting"
         android:layout_width="@dimen/size_button_w"
         android:layout_height="@dimen/size_button_h"
         android:src="@drawable/settings"
         android:layout_marginTop="40dp"
-        android:layout_marginStart="350dp"
+        android:layout_alignParentRight="true"
         />
 
     <androidx.cardview.widget.CardView
@@ -123,8 +132,8 @@
             android:id="@+id/time_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="230dp"
-            android:layout_marginTop="130dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="125dp"
             android:textSize="25sp"
             android:textColor="@color/red"
             />
