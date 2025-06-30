@@ -28,6 +28,35 @@
         android:layout_height="wrap_content"
         android:text="@string/btn_terminal"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="150dp"/>
+        android:layout_marginStart="150dp"/>
+
+    <Button
+        android:id="@+id/btn_EnableBlu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Включить Bluetooth"
+        android:layout_marginTop="100dp"
+        />
+
+    <Button
+        android:id="@+id/btnDiscover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Найти устройство"
+        android:layout_marginTop="150dp"
+        />
+
+    <Button
+        android:id="@+id/btnPaired"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="Показать сопряженные"/>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btnPaired"/>
 
 </RelativeLayout>
