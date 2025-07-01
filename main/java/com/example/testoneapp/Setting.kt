@@ -2,7 +2,6 @@ package com.example.testoneapp
 //изменять данные и передавать их прошлому окну после нажатия кнопки
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import android.content.Intent
@@ -11,11 +10,14 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.TimePicker
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import java.util.Locale
 
 class Setting : ComponentActivity() {
     val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
+    var currentTime = LocalTime.now()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +45,8 @@ class Setting : ComponentActivity() {
         timeStart.text = timeStartText
 
         val editDate: ImageView = findViewById(R.id.btn_edit_date)
-        val editTime: ImageView = findViewById(R.id.btn_edit_time)
-        val editTimeStart: ImageView = findViewById(R.id.btn_edit_timeStart)
+        val editTimeStart: Button = findViewById(R.id.btn_edit_timeStart)
+        val updateTimeStart: Button = findViewById(R.id.btn_update_time)
 
         editDate.setOnClickListener{
             val year = calendar.get(Calendar.YEAR)
@@ -60,30 +62,23 @@ class Setting : ComponentActivity() {
                 }, day, month,year).show()
         }
 
-        editTime.setOnClickListener {
-            val hour = calendar.get(Calendar.HOUR)
-            val minute = calendar.get(Calendar.MINUTE)
-
-            TimePickerDialog(
-                this,
-                {_: TimePicker, selectedHour: Int, selectedMinute: Int ->
-                    val formatedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
-                    time.text = "$formatedTime"
-                }, hour, minute, true
-            ).show()
-        }
 
         editTimeStart.setOnClickListener {
-            val hour = calendar.get(Calendar.HOUR)
-            val minute = calendar.get(Calendar.MINUTE)
+            currentTime = currentTime.plusMinutes(15)
+            //currentTime.add(Calendar.MINUTE, 15)
 
-            TimePickerDialog(
-                this,
-                {_: TimePicker, selectedHour: Int, selectedMinute: Int ->
-                    val formatedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
-                    timeStart.text = "$formatedTime"
-                }, hour, minute, true
-            ).show()
+            val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+            timeStart.text = currentTime.format(formatter)
+
+           /* val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+            val formattedTime = timeFormat.format(currentTime)
+            timeStart.text = formattedTime*/
+        }
+
+        updateTimeStart.setOnClickListener {
+            currentTime = LocalTime.now()
+            val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+            timeStart.text = currentTime.format(formatter)
         }
 
         save.setOnClickListener {
@@ -94,6 +89,7 @@ class Setting : ComponentActivity() {
             startActivity(intent)
         }
     }
+
 
     private fun setContentView() {
         TODO("Not yet implemented")
